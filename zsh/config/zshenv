@@ -1,0 +1,32 @@
+if [ -z "$DOTFILES" ]; then
+    export DOTFILES=$HOME/dotfiles
+    source $DOTFILES/env.sh
+fi
+
+# Spicetify
+if [ -d "$HOME/.spicetify" ]; then
+    append_path "$HOME/.spicetify"
+    export PATH
+fi
+
+# Personal binaries
+if [ -f "$ARTI_HOME/env.sh" ]; then
+    source "$ARTI_HOME/env.sh"
+fi
+
+if [ -f "$CONFIG/cpp_env" ]; then
+    source "$CONFIG/cpp_env"
+fi
+
+export QT_QPA_PLATFORMTHEME='qt5ct'
+
+export GPG_TTY=$(tty)
+
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+export PAGER='less'
+export MANPAGER='nvim +Man!'
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export CPM_SOURCE_CACHE=$HOME/dev/.cpm-cache

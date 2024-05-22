@@ -1,0 +1,18 @@
+* {
+    alpha:              #00000000;
+
+    background:         #3B4252EF;
+    background-alt:     #2E3440EF;
+
+    foreground:         #D8DEE9FF;
+    foreground-alt:     #88C0D0FF;
+    foreground-dark:    #5C687FFF;
+
+    red:                #BF616AEF;
+    blue:               #81A1C1EF;
+    cyan:               #8FBCBBEF;
+    green:              #A3BE8CEF;
+    yellow:             #EBCB8BEF;
+    magenta:            #B48EADEF;
+}
+
