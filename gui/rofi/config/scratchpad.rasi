@@ -1,0 +1,84 @@
+@import "colors.rasi"
+
+configuration {
+    font:                   "UbuntuMono Nerd Font Mono 12";
+    show-icons:             true;
+    display-drun:           "󰍉";
+    drun-display-format:    "{name}";
+    disable-history:        true;
+}
+
+window {
+    transparency:           "real";
+    background-color:       @clear;
+    border:                 3px;
+    border-color:           @love;
+    width:                  300px;
+    location:               center;
+    x-offset:               0;
+    y-offset:               0;
+}
+
+inputbar {
+    background-color:       @clear;
+    children:               [ prompt, entry ];
+    expand:                 false;
+    spacing:                0px;
+}
+
+mainbox {
+    background-color:       @clear;
+    children:               [ inputbar, listview ];
+    spacing:                0px;
+    padding:                0px;
+}
+
+prompt {
+    enabled:                true;
+    padding:                12px 15px 12px 15px;
+    background-color:       @gold;
+    text-color:             @base;
+    font:                   "UbuntuMono Nerd Font Propo 16";
+}
+
+entry {
+    enabled:                true;
+    padding:                12px 15px 12px 15px;
+    background-color:       @overlay;
+    text-color:             @text;
+    placeholder:            "Search...";
+    blink:                  true;
+}
+
+listview {
+    background-color:       @base;
+    padding:                10px 10px 10px 10px;
+    cycle:                  true;
+    dynamic:                true;
+    layout:                 vertical;
+    lines:                  10;
+}
+
+element {
+    background-color:       @overlay;
+    text-color:             @text;
+    orientation:            horizontal;
+    border-radius:          5px;
+    padding:                5px;
+}
+
+element-icon {
+    enabled:                false;
+}
+
+element-text {
+    background-color:       @clear;
+    text-color:             inherit;
+    expand:                 true;
+    vertical-align:         0.5;
+    padding:                0px 0px 0px 6px;
+}
+
+element selected {
+    background-color:       #21202e;
+}

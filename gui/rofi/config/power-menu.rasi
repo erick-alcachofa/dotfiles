@@ -1,107 +1,54 @@
 @import "colors.rasi"
 
 configuration {
-	font:							"Ubuntu Nerd Font 10";
-    show-icons:                     true;
-	icon-theme: 					"Zafiro-icons-Dark";
-    disable-history:                false;
-    fullscreen:                     false;
-	hide-scrollbar: 				true;
-	sidebar-mode: 					false;
+    font:                   "UbuntuMono Nerd Font Mono 12";
+    show-icons:             false;
+    display-drun:           "󰍉";
+    drun-display-format:    "{name}";
+    disable-history:        true;
 }
 
 window {
-    transparency:                   "real";
-    background-color:               @background;
-    text-color:                     @foreground;
-	border:							2px;
-	border-color:					@blue;
-    border-radius:                  8px;
-	width:							150px;
-    location:                       center;
-    x-offset:                       0;
-    y-offset:                       0;
-    padding:                        0px 0px 0px 0px;
-}
-
-prompt {
-    enabled: 						true;
-	padding: 						0px 0px 0px 5px;
-	background-color: 				@background-alt;
-	text-color: 					@foreground-alt;
-	font:							"Ubuntu Nerd Font Bold 11";
-}
-
-textbox-prompt-colon {
-	padding: 					    2px 0px 0px 0px;
-	background-color: 				@background-alt;
-	text-color: 					@foreground-alt;
-	expand:                         false;
-	str:                            "";
-	font:							"Ubuntu Nerd Font Bold 11";
-}
-
-inputbar {
-	children: 						[ textbox-prompt-colon, prompt ];
-    background-color:               @background-alt;
-    text-color:                     @foreground;
-    expand:                         false;
-	border:							0px 0px 0px 0px;
-    border-radius:                  0px;
-	border-color:					@alpha;
-    margin:                         0px;
-    padding:                        5px 5px 5px 15px;
-}
-
-listview {
-    background-color:               @alpha;
-    padding:                        0px 0px 0px 0px;
-    columns:                        1;
-    lines:                          6;
-    spacing:                        0px;
-    cycle:                          true;
-    dynamic:                        true;
-    layout:                         vertical;
+    transparency:           "real";
+    background-color:       @clear;
+    width:                  120px;
+    location:               north east;
+    x-offset:               0;
+    y-offset:               32px;
 }
 
 mainbox {
-    background-color:               @alpha;
-	border:							0px;
-    border-radius:                  0px;
-	border-color:					@alpha;
-    children:                       [ inputbar, listview ];
-    spacing:                       	0px;
-    padding:                        0px;
+    background-color:       @clear;
+    children:               [ listview ];
+    spacing:                0px;
+    padding:                0px;
+}
+
+listview {
+    background-color:       @base;
+    padding:                5px;
+    cycle:                  true;
+    dynamic:                true;
+    layout:                 vertical;
+    lines:                  6;
 }
 
 element {
-    background-color:               @alpha;
-    text-color:                     @foreground;
-    orientation:                    horizontal;
-    border-radius:                  0px;
-    padding:                        6px 6px 6px -12px;
-}
-
-element-icon {
-    background-color:               transparent;
-    text-color:               		inherit;
-    size:                           24px;
-    border:                         0px;
+    background-color:       @overlay;
+    text-color:             @text;
+    orientation:            horizontal;
+    border-radius:          5px;
+    padding:                5px;
 }
 
 element-text {
-    background-color:               transparent;
-    text-color:               		inherit;
-    expand:                         true;
-    horizontal-align:               0;
-    vertical-align:                 0.5;
-    margin:                         0px 2.5px 0px 2.5px;
+    background-color:       @clear;
+    text-color:             inherit;
+    expand:                 true;
+    vertical-align:         0.5;
+    padding:                0px 0px 0px 6px;
 }
 
 element selected {
-    background-color:               @foreground-dark;
-    text-color:                     @foreground;
-	border:							0px 0px 0px 2px;
-    border-radius:                  0px;
-    border-color:                  	@alpha;
+    background-color:       #21202e;
 }

@@ -3,7 +3,9 @@ local act = wezterm.action
 
 local config = wezterm.config_builder()
 
-config.font = wezterm.font('Caskaydia Mono Nerd Font')
+config.audible_bell = "Disabled"
+
+config.font = wezterm.font('CaskaydiaMono Nerd Font Mono')
 config.font_size = 12
 
 config.color_scheme = 'Rosé Pine Moon (Gogh)'

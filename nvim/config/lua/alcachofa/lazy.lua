@@ -83,7 +83,6 @@ require("lazy").setup(
         "airblade/vim-gitgutter",
         "preservim/nerdcommenter",
         -- "NvChad/nvim-colorizer.lua",
-        "startup-nvim/startup.nvim",
         "christoomey/vim-tmux-navigator",
         -- "lukas-reineke/indent-blankline.nvim",
         {

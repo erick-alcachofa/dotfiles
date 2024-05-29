@@ -33,10 +33,9 @@ yay -S --needed \
 . $DOTFILES/gui/wezterm/setup.sh 
 
 yay -S --needed \
-    obs \
+    obs-studio \
     vlc \
     ufw \
-    xdo \
     flac \
     gimp \
     opus \
@@ -47,7 +46,7 @@ yay -S --needed \
     thunar \
     ffmpeg \
     jmtpfs \
-    xdotol \
+    xdotool \
     vivaldi \
     firefox \
     spotify \

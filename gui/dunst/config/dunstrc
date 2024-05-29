@@ -2,24 +2,21 @@
     monitor = 0
     follow = none
 
-    # dynamic width from 0 to 300
-    # width = (0, 300)
-    # constant width of 300
     width = (300,400)
     height = 300
     origin = top-right
-    offset = 10x44
+    offset = 11x39
     scale = 0
 
     # Maximum number of notification (0 means no limit)
-    notification_limit = 10
+    notification_limit = 5
 
     progress_bar = true
     progress_bar_height = 10
     progress_bar_frame_width = 1
-    progress_bar_min_width = 150
+    progress_bar_min_width = 300
     progress_bar_max_width = 300
-    progress_bar_corner_radius = 5
+    progress_bar_corner_radius = 2
 
     icon_corner_radius = 0
 
@@ -34,21 +31,22 @@
     horizontal_padding = 10
 
     text_icon_padding = 0
+    icon_theme = "rose-pine-moon-icons"
+    enable_recursive_icon_lookup = true
 
-    frame_width = 2
+    frame_width = 1
     frame_color = "#81a1c1"
 
-    gap_size = 0
-    corner_radius = 10
+    gap_size = 3
+    corner_radius = 2
 
     sort = yes
     idle_threshold = 120
 
-    font = Ubuntu Nerd Font 10
+    font = UbuntuMono Nerd Font Mono 12
     line_height = 0
 
     markup = full
-    format = "<b>%s</b>\n%b"
 
     alignment = left
     vertical_alignment = center
@@ -63,20 +61,16 @@
 
     show_indicators = yes
 
-    enable_recursive_icon_lookup = true
-
-    icon_theme = candy-icons
     icon_position = left
 
-    min_icon_size = 50
-    max_icon_size = 60
+    min_icon_size = 32
+    max_icon_size = 32
 
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    # icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
     sticky_history = yes
     history_length = 20
 
-    dmenu = /usr/bin/dmenu -p dunst:
     browser = /usr/bin/xdg-open
 
     always_run_script = true
@@ -96,17 +90,22 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#2e3440"
-    foreground = "#d8dee9"
-    timeout = 10
+    background = "#393955"
+    highlight = "#3e8fb0"
+    frame_color = "#3e8fb0"
+    default_icon = "dialog-information"
+    format = "<b><span foreground='#3e8fb0'>%s</span></b>\n%b"
 
 [urgency_normal]
-    background = "#2e3440"
-    foreground = "#d8dee9"
-    timeout = 10
+    background = "#443c53"
+    highlight = "#f6c177"
+    frame_color = "#f6c177"
+    default_icon = "dialog-warning"
+    format = "<b><span foreground='#f6c177'>%s</span></b>\n%b"
 
 [urgency_critical]
-    background = "#2e3440"
-    foreground = "#ffffff"
-    frame_color = "#bf616a"
-    timeout = 0
+    background = "#433754"
+    highlight = "#eb6f92"
+    frame_color = "#eb6f92"
+    default_icon = "dialog-error"
+    format = "<b><span foreground='#eb6f92'>%s</span></b>\n%b"

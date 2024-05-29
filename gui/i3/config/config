@@ -1,6 +1,6 @@
 set $mod Mod4
 
-font pango:UbuntuNerdFont-Regular 10
+font pango:UbuntuMono Nerd Font Mono Bold 12
 
 title_align center
 focus_wrapping no
@@ -53,16 +53,15 @@ bindsym $mod+minus exec "~/dotfiles/gui/scripts/restore-scratchpad.sh"
 
 bindsym $mod+a focus parent
 
-set $ws1 "Work"
-set $ws2 "Web"
-set $ws3 "Social"
-set $ws4 "Music"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
 
 workspace $ws1 output DVI-D-0
 workspace $ws2 output HDMI-0
@@ -115,7 +114,9 @@ bindsym $mod+r mode "resize"
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
-for_window [class="vol|ttrm"] floating enable, resize set 1000 600, move to scratchpad
+
+for_window [class="vol"] floating enable, resize set 800 500, move to scratchpad
+for_window [class="ttrm|sys"] floating enable, resize set 1000 680, move to scratchpad
 
 for_window [class="iwgtk"] floating enable, position center
 for_window [class="Gpick"] floating enable, move position center
@@ -125,7 +126,7 @@ assign [class="discord"] $ws3
 assign [class="TelegramDesktop"] $ws3
 assign [class="firefox" instance="Navigator"] $ws2
 
-gaps inner 10
+gaps inner 12
 gaps outer 0
 
 default_border pixel
@@ -140,12 +141,29 @@ popup_during_fullscreen smart
 for_window [all] title_window_icon yes
 for_window [all] title_window_icon padding 5
 
-#                            Border    Backgr    Text      Indica    ChBord
-client.focused              #00000000 #434C5EFF #FFFFFFFF #B48EADFF #81A1C1FF
-client.focused_inactive     #00000000 #434C5EFF #FFFFFFFF #B48EADFF #434C5EFF
-client.unfocused            #00000000 #2E3440FF #FFFFFFFF #B48EADFF #434C5EFF
-client.urgent               #00000000 #BF616AFF #FFFFFFFF #B48EADFF #434C5EFF
-client.background           #00000000
+set $clear          #00000000
+set $base           #191724
+set $surface        #1f1d2e
+set $overlay        #26233a
+set $muted          #6e6a86
+set $subtle         #908caa
+set $text           #e0def4
+set $love           #eb6f92
+set $gold           #f6c177
+set $rose           #ebbcba
+set $pine           #31748f
+set $foam           #9ccfd8
+set $iris           #c4a7e7
+set $highlightlow   #21202e
+set $highlightmed   #403d52
+set $highlighthigh  #524f67
+
+#                        Border    Backgr      Text      Indica     ChBord
+client.focused           $clear    $muted      $text     $pine      $love
+client.focused_inactive  $clear    $muted      $text     $pine      $overlay
+client.unfocused         $clear    $overlay    $text     $pine      $overlay
+client.urgent            $clear    $roam       $text     $pine      $overlay
+client.background        $clear
 
 exec --no-startup-id dex --autostart --environment i3
 
@@ -154,12 +172,14 @@ exec --no-startup-id dex --autostart --environment i3
 
 exec --no-startup-id ~/dotfiles/gui/scripts/picom.sh
 
-exec_always --no-startup-id feh --bg-fill ~/dotfiles/gui/wallpapers/rose-pine.png
+exec_always --no-startup-id "feh --bg-fill ~/dotfiles/gui/wallpapers/rose-pine.png"
 
 exec_always --no-startup-id ~/dotfiles/gui/scripts/polybar.sh
 
-exec_always --no-startup-id "~/dotfiles/gui/scripts/launch-scratchpad.sh 'kitty --class ttrm,ttrm' 'class=\\"ttrm\\"'"
-exec_always --no-startup-id "~/dotfiles/gui/scripts/launch-scratchpad.sh 'kitty --class vol,vol -e pulsemixer' 'class=\\"vol\\"'"
+exec_always --no-startup-id "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class ttrm,ttrm' 'class=\\"ttrm\\"'"
+exec_always --no-startup-id "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class vol,vol -e pulsemixer' 'class=\\"vol\\"'"
+exec_always --no-startup-id "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class sys,sys -e btop' 'class=\\"sys\\"'"
 
-bindsym $mod+t exec "~/dotfiles/gui/scripts/launch-scratchpad.sh 'kitty --class ttrm,ttrm' 'class=\\"ttrm\\"'"
-bindsym $mod+p exec "~/dotfiles/gui/scripts/launch-scratchpad.sh 'kitty --class vol,vol -e pulsemixer' 'class=\\"vol\\"'"
+bindsym $mod+t exec "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class ttrm,ttrm' 'class=\\"ttrm\\"'"
+bindsym $mod+p exec "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class vol,vol -e pulsemixer' 'class=\\"vol\\"'"
+bindsym $mod+o exec "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class sys,sys -e btop' 'class=\\"sys\\"'"

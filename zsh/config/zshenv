@@ -1,3 +1,13 @@
+function append_path() {
+    case ":$PATH:" in
+        *:"$1":*)
+            ;;
+        *)
+            PATH="${PATH:+$PATH:}$1"
+    esac
+}
+
+
 if [ -z "$DOTFILES" ]; then
     export DOTFILES=$HOME/dotfiles
     source $DOTFILES/env.sh
@@ -17,6 +27,8 @@ fi
 if [ -f "$CONFIG/cpp_env" ]; then
     source "$CONFIG/cpp_env"
 fi
+
+unset append_path
 
 export QT_QPA_PLATFORMTHEME='qt5ct'
 

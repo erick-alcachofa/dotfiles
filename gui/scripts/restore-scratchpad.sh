@@ -17,8 +17,8 @@ done \
         -dmenu\
         -format i\
         -no-custom\
-        -show-icons\
-        -p "Scratchpad"
+        -p "󰍉"\
+        -theme ~/.config/rofi/scratchpad.rasi
 )
 
 if [ $? -eq  0 ]; then

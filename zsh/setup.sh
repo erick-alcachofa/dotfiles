@@ -25,6 +25,7 @@ yay -S --needed \
     gettext \
     starship \
     readline \
+    fastfetch \
     findutils \
     pulsemixer
 
@@ -39,6 +40,9 @@ ln -f -s $DOTFILES/zsh/config/starship/starship.toml $CONFIG/starship.toml
 
 mkdir -p $CONFIG/yazi
 ln -f -s $DOTFILES/zsh/config/yazi/theme.toml $CONFIG/yazi/theme.toml
+
+mkdir -p $CONFIG/fastfetch
+ln -f -s $DOTFILES/zsh/config/fastfetch/config.jsonc $CONFIG/fastfetch/config.jsonc
 
 mkdir -p $HOME/{desktop,downloads,templates,public,documents,media/audios,media/pictures,media/videos}
 ln -f -s $DOTFILES/zsh/config/user-dirs.dirs $CONFIG/user-dirs.dirs

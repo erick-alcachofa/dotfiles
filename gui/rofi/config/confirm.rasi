@@ -1,9 +1,9 @@
 @import "colors.rasi"
 
 * {
-    background-color:       @background;
-    text-color:             @foreground;
-	font:				 	"Ubuntu Nerd Font 11";
+    background-color:       @base;
+    text-color:             @text;
+	font:				 	"UbuntuMono Nerd Font Mono 12";
 }
 
 window {
@@ -11,12 +11,12 @@ window {
     padding:    			25px;
     border:					2px;
     border-radius:          8px;
-    border-color:           @blue;
+    border-color:           @love;
     location:               center;
     y-offset:               -2em;
 }
 
 entry {
     expand: 				true;
-    text-color:				@foreground-alt;
+    text-color:				@text;
 }

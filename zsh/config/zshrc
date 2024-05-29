@@ -1,4 +1,4 @@
-append_path () {
+function append_path() {
     case ":$PATH:" in
         *:"$1":*)
             ;;
@@ -12,6 +12,8 @@ if [ -d "$HOME/.local/bin" ] ; then
     export PATH
 fi
 
+unset append_path
+
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -21,7 +23,7 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-zinit light zsh-users/zsh-syntax-highlighting
+# zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light Aloxaf/fzf-tab
@@ -51,6 +53,13 @@ bindkey "^[[B" down-line-or-beginning-search
 if [[ -n "${terminfo[kcud1]}" ]]; then
   bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
 fi
+
+# [Alt-RightArrow] - move forward one word
+bindkey -M emacs '^[[1;3C' forward-word
+
+# [Alt-LeftArrow] - move backward one word
+bindkey -M emacs '^[[1;3D' backward-word
+
 
 HISTSIZE=99999
 HISTFILE=~/.zsh_history
@@ -96,7 +105,7 @@ function yy() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
+		\builtin cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
 }
@@ -115,6 +124,8 @@ alias clip='xclip -sel clip'
 alias mv='mv -i'
 alias rm='rm -I'
 
+alias mux='tmuxinator'
+
 alias idot="dot -Gmargin=0.2 '-Gbgcolor=#ffffff00' -Gcolor=white -Gfontcolor=white -Ncolor=white -Nfontcolor=white -Ecolor=white -T png | kitten icat"
 
 WORDCHARS=''
@@ -126,3 +137,5 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
 eval "$(starship init zsh)"
+
+fastfetch
