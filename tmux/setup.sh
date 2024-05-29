@@ -18,3 +18,4 @@ mkdir -p $CONFIG/tmux/plugins
 git clone https://github.com/tmux-plugins/tpm $CONFIG/tmux/plugins/tpm
 
 ln -f -s $DOTFILES/tmux/config/tmux.conf $CONFIG/tmux/tmux.conf
+ln -f -s $DOTFILES/tmux/config/tmuxinator $CONFIG/tmuxinator

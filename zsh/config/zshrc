@@ -74,12 +74,14 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-test -r ~/.dir_colors && eval $(dircolors ~/.dir_colors)
+test -r ~/.dircolors && eval $(dircolors ~/.dircolors)
 
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --color=always --icon=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'lsd --color=always --icon=always $realpath'
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 export FZF_ALT_C_COMMAND=''
 export FZF_CTRL_T_COMMAND=''
@@ -118,15 +120,22 @@ alias z='cd'
 alias ls='lsd'
 alias l='lsd -Al'
 alias tree='lsd --tree'
-alias cat='bat -p -P --theme=Nord'
+alias cat='bat -p -P'
 alias clip='xclip -sel clip'
 
 alias mv='mv -i'
 alias rm='rm -I'
 
+alias smux='tmuxinator start'
 alias mux='tmuxinator'
 
-alias idot="dot -Gmargin=0.2 '-Gbgcolor=#ffffff00' -Gcolor=white -Gfontcolor=white -Ncolor=white -Nfontcolor=white -Ecolor=white -T png | kitten icat"
+alias dot="dot -Gmargin=0.2 -Gbgcolor=#00000000 -Gcolor=#e0def4ff -Gfontcolor=#e0def4ff -Ncolor=#e0def4ff -Nfontcolor=#e0def4ff -Ecolor=#e0def4ff -T png"
+alias plant="java -jar ~/.local/share/plantuml.jar"
+
+alias idot="\\dot -Gmargin=0.2 -Gbgcolor=#00000000 -Gcolor=#e0def4ff -Gfontcolor=#e0def4ff -Ncolor=#e0def4ff -Nfontcolor=#e0def4ff -Ecolor=#e0def4ff -T png | wezterm imgcat"
+alias iplant="java -jar ~/.local/share/plantuml.jar -p | wezterm imgcat"
+
+alias icat="wezterm imgcat"
 
 WORDCHARS=''
 

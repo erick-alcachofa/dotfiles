@@ -66,13 +66,15 @@ require('telescope').setup({
 
                 if is_image(filepath) then
                     local term = vim.api.nvim_open_term(bufnr, {})
+
                     local function send_output(_, data, _)
                         for _, d in ipairs(data) do
                             vim.api.nvim_chan_send(term, d .. '\r\n')
                         end
                     end
+
                     vim.fn.jobstart(
-                        { 'chafa', filepath },
+                        { 'chafa', '--format=symbols', '--symbols=all', '--colors=full', filepath },
                         { on_stdout = send_output, stdout_buffered = true, pty = true }
                     )
                 else

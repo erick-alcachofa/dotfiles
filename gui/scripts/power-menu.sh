@@ -1,4 +1,4 @@
-rofi_command="rofi -theme ~/.config/rofi/power-menu.rasi"
+rofi_command="rofi -m 1 -theme ~/.config/rofi/power-menu.rasi"
 uptime=$(uptime -p | sed -e 's/up //g')
 
 # Options
