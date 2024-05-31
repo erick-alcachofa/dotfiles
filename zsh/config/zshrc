@@ -129,6 +129,8 @@ alias rm='rm -I'
 alias smux='tmuxinator start'
 alias mux='tmuxinator'
 
+alias dsmux='tmuxinator start default -n `basename $PWD`'
+
 alias dot="dot -Gmargin=0.2 -Gbgcolor=#00000000 -Gcolor=#e0def4ff -Gfontcolor=#e0def4ff -Ncolor=#e0def4ff -Nfontcolor=#e0def4ff -Ecolor=#e0def4ff -T png"
 alias plant="java -jar ~/.local/share/plantuml.jar"
 

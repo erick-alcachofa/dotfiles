@@ -79,6 +79,9 @@ return {
         TelescopePreviewBorder = {
             fg = "#21202e",
             bg = "none"
+        },
+        TelescopeSelection = {
+            bg = "base"
         }
     },
 
