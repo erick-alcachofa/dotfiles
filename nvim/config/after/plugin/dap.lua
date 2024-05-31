@@ -4,7 +4,7 @@ local dapui = require('dapui')
 dap.adapters.cppdbg = {
     id = 'cppdbg',
     type = 'executable',
-    command = '/opt/cpptools/extension/debugAdapters/bin/OpenDebugAD7'
+    command = '/home/alcachofa/dev/toolchains/cpptools/extension/debugAdapters/bin/OpenDebugAD7'
 }
 
 dap.configurations.cpp = {
@@ -28,7 +28,7 @@ dap.configurations.cpp = {
                         prompt_title = "Executable",
                         finder = finders.new_oneshot_job(
                             {
-                                "fdfind",
+                                "fd",
                                 "-I",
                                 "-L",
                                 "-i",
@@ -72,7 +72,7 @@ vim.keymap.set("n", "<F8>", function() dap.step_out() end)
 vim.keymap.set("n", "<F9>", function() dap.toggle_breakpoint() end)
 
 require('telescope').load_extension('dap')
-require('nvim-dap-virtual-text').setup()
+require('nvim-dap-virtual-text').setup{}
 dapui.setup()
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
