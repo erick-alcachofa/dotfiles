@@ -2,14 +2,13 @@ rofi_command="rofi -m 1 -theme ~/.config/rofi/power-menu.rasi"
 uptime=$(uptime -p | sed -e 's/up //g')
 
 # Options
-windows=" Windows"
 shutdown="󰐥 Shutdown"
 reboot="󰜉 Restart"
 lock="󰌾 Lock"
 suspend="󰤄 Sleep"
 logout="󰍃 Logout"
 
-options="$lock\n$suspend\n$logout\n$reboot\n$shutdown\n$windows"
+options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
 
 chosen="$(echo -e "$options" | $rofi_command -p "Power Menu" -dmenu -selected-row 0)"
 
@@ -98,16 +97,6 @@ case $chosen in
         ans=$(confirm_exit &)
         if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
             i3-msg exit
-        elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-            exit 0
-        else
-            msg
-        fi
-        ;;
-    $windows)
-        ans=$(confirm_exit &)
-        if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-            . ~/dotfiles/gui/scripts/reboot-to-windows.sh
         elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
             exit 0
         else
