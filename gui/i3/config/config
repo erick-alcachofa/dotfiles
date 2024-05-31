@@ -96,7 +96,8 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+m exec "~/dotfiles/gui/scripts/swap-workspaces.sh"
 bindsym $mod+Shift+m move workspace to output right
 
-bindsym $mod+Shift+g exec "~/dotfiles/gui/scripts/screenshot.sh"
+bindsym $mod+g exec "~/dotfiles/gui/scripts/screenshot.sh"
+bindsym $mod+Shift+g exec "~/dotfiles/gui/scripts/screenshot.sh -s"
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
