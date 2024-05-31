@@ -30,6 +30,8 @@ fi
 
 unset append_path
 
+export TERMINAL='wezterm'
+
 export QT_QPA_PLATFORMTHEME='qt5ct'
 
 export GPG_TTY=$(tty)
