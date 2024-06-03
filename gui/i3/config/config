@@ -121,6 +121,7 @@ for_window [window_role="task_dialog"] floating enable
 
 for_window [class="vol"] floating enable, resize set 800 500, move to scratchpad
 for_window [class="ttrm|sys"] floating enable, resize set 1000 680, move to scratchpad
+for_window [class="scrcpy"] floating enable, resize set 490 1056, move to scratchpad
 
 for_window [class="iwgtk"] floating enable, position center
 for_window [class="Gpick"] floating enable, move position center
@@ -180,10 +181,7 @@ exec_always --no-startup-id "feh --bg-fill ~/dotfiles/gui/wallpapers/rose-pine.p
 
 exec_always --no-startup-id ~/dotfiles/gui/scripts/polybar.sh
 
-exec_always --no-startup-id "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class ttrm,ttrm' 'class=\\"ttrm\\"'"
-exec_always --no-startup-id "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class vol,vol -e pulsemixer' 'class=\\"vol\\"'"
-exec_always --no-startup-id "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class sys,sys -e btop' 'class=\\"sys\\"'"
-
-bindsym $mod+t exec "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class ttrm,ttrm' 'class=\\"ttrm\\"'"
-bindsym $mod+p exec "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class vol,vol -e pulsemixer' 'class=\\"vol\\"'"
-bindsym $mod+o exec "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class sys,sys -e btop' 'class=\\"sys\\"'"
+bindsym $mod+t exec "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class ttrm' 'ttrm'"
+bindsym $mod+p exec "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class vol -e pulsemixer' 'vol'"
+bindsym $mod+o exec "~/dotfiles/gui/scripts/launch-scratchpad.sh '/usr/bin/wezterm-gui start --class sys -e btop' 'sys'"
+bindsym $mod+u exec "~/dotfiles/gui/scripts/launch-scratchpad.sh 'scrcpy -m 1024 --prefer-text -S -t' 'scrcpy'"
