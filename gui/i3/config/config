@@ -173,6 +173,7 @@ exec --no-startup-id dex --autostart --environment i3
 # exec --no-startup-id gnome-keyring-daemon --start --components=secrets
 
 exec --no-startup-id ~/dotfiles/gui/scripts/picom.sh
+exec --no-startup-id nm-applet
 
 exec_always --no-startup-id "feh --bg-fill ~/dotfiles/gui/wallpapers/rose-pine.png"
 

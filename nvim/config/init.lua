@@ -47,12 +47,11 @@ vim.opt.signcolumn = "yes"
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.isfname:append("@-@")
-vim.opt.fillchars='eob: '
+vim.opt.fillchars = 'eob: '
+
+vim.opt.colorcolumn = ""
 
 vim.opt.ea = true
 
-require("alcachofa")
-
-if vim.g.neovide then
-    vim.o.guifont = "Mononoki Nerd Font Mono:h12"
-end
+require("mappings")
+require("package-manager")

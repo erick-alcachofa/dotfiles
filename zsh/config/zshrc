@@ -81,7 +81,6 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --color=always --icon=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'lsd --color=always --icon=always $realpath'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 export FZF_ALT_C_COMMAND=''
 export FZF_CTRL_T_COMMAND=''
@@ -115,16 +114,21 @@ function yy() {
 alias ..='cd ..'
 alias ...='cd ../..'
 
-alias z='cd'
-
-alias ls='lsd'
 alias l='lsd -Al'
+alias ls='lsd'
+
 alias tree='lsd --tree'
+
+alias df='duf'
+alias du='dust'
+
+alias psf="ps -ef | fzf | awk 'print \$2'"
+
 alias cat='bat -p -P'
 alias clip='xclip -sel clip'
 
 alias mv='mv -i'
-alias rm='rm -I'
+alias rm='rm.sh -I'
 
 alias smux='tmuxinator start'
 alias mux='tmuxinator'
@@ -145,8 +149,7 @@ autoload -Uz compinit && compinit
 zinit cdreplay -q
 
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
-
+eval "$(zoxide init --cmd z zsh)"
 eval "$(starship init zsh)"
 
 fastfetch
