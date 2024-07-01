@@ -1,0 +1,9 @@
+# Using glob patterns to include/exclude files or folders
+--glob=!git/*
+
+# Only check case if a capital letter is explicitly typed
+--smart-case
+
+# Follow through hidden files/dirs
+--follow
+--no-messages

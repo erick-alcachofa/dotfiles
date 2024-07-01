@@ -5,8 +5,10 @@ symbol = "  "
 symbol = " "
 
 [c]
+format = 'via [$symbol($name $version)]($style)'
 symbol = " "
 detect_files = ['CMakeLists.txt', 'compile_commands.json']
+commands = [ [ 'cc', '--version' ] ]
 
 [cmake]
 disabled = true

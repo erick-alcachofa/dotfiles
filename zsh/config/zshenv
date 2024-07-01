@@ -3,7 +3,7 @@ function append_path() {
         *:"$1":*)
             ;;
         *)
-            PATH="${PATH:+$PATH:}$1"
+            PATH="$1${PATH:+:${PATH}}"
     esac
 }
 
@@ -29,6 +29,8 @@ if [ -f "$CONFIG/cpp_env" ]; then
 fi
 
 unset append_path
+
+export TOOLCHAINS=/home/alcachofa/dev/toolchains
 
 export TERMINAL='wezterm'
 

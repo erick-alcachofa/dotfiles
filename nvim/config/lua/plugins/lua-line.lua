@@ -27,11 +27,12 @@ return {
                     end
                 }
             },
+            lualine_b = { 'branch', 'diff' },
             lualine_c = { 'filename' },
+
+            lualine_x = { 'fileformat', 'filetype' },
             lualine_y = { 'progress' },
             lualine_z = { 'location' },
-            lualine_b = { 'branch', 'diff' },
-            lualine_x = { 'fileformat', 'filetype' },
         }
     }
 }

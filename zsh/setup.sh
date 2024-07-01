@@ -40,6 +40,7 @@ ln -f -s $DOTFILES/zsh/config/starship/starship.toml $CONFIG/starship.toml
 
 mkdir -p $CONFIG/yazi
 ln -f -s $DOTFILES/zsh/config/yazi/theme.toml $CONFIG/yazi/theme.toml
+ln -f -s $DOTFILES/zsh/config/yazi/keymaps.toml $CONFIG/yazi/keymaps.toml
 
 mkdir -p $CONFIG/fastfetch
 ln -f -s $DOTFILES/zsh/config/fastfetch/config.jsonc $CONFIG/fastfetch/config.jsonc

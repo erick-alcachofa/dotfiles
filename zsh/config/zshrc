@@ -3,7 +3,7 @@ function append_path() {
         *:"$1":*)
             ;;
         *)
-            PATH="${PATH:+$PATH:}$1"
+            PATH="$1${PATH:+:${PATH}}"
     esac
 }
 
@@ -86,6 +86,8 @@ export FZF_ALT_C_COMMAND=''
 export FZF_CTRL_T_COMMAND=''
 export FZF_DEFAULT_COMMAND='rg --files --fixed-strings --hidden --follow --glob "!.git/*"'
 
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 function files() {
     thunar $@ &>/dev/null & disown
 }
@@ -103,16 +105,65 @@ function open() {
 }
 
 function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		\builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        \builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
+function zpd() {
+    local dir="$1"
+
+    case "$dir" in
+	/*|~*)
+            pushd "$dir" &>/dev/null
+            dirs -p -v
+        ;;
+        *)
+            if [[ -d "$dir" ]]; then
+                pushd "$dir" &>/dev/null
+                dirs -p -v
+                return
+            fi
+
+            local matches="$(zoxide query -l "$dir")"
+
+            if [[ -z "$matches" ]]; then
+                echo "Not found: $dir"
+                return
+            fi
+
+            if [[ "$(echo $matches | wc -l)" -eq 1 ]]; then
+                pushd "$matches" &>/dev/null
+                dirs -p -v
+            else
+                local selected=$(echo $matches | fzf --preview="lsd --color=always --icon=always {}" --preview-window="down:25%")
+
+                if [[ ! -z "$selected" ]]; then
+                    pushd "$selected" &>/dev/null
+                    dirs -p -v
+                fi
+            fi
+	;;
+    esac
+}
+
+function pd() {
+    pushd "$@" &>/dev/null
+    dirs -p -v
+}
+
+function ppd() {
+    popd "$@" &>/dev/null
+    dirs -p -v
 }
 
 alias ..='cd ..'
 alias ...='cd ../..'
+
+alias ds='dirs -p -v'
 
 alias l='lsd -Al'
 alias ls='lsd'
@@ -122,7 +173,7 @@ alias tree='lsd --tree'
 alias df='duf'
 alias du='dust'
 
-alias psf="ps -ef | fzf | awk 'print \$2'"
+alias psf="ps -ef | fzf | awk '{ print \$2 }'"
 
 alias cat='bat -p -P'
 alias clip='xclip -sel clip'

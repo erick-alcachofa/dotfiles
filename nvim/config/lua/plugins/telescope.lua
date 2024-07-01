@@ -87,16 +87,34 @@ return {
                 },
             },
             pickers = {
+                defaults = {
+                    vimgrep_arguments = {
+                        "--color=never",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                        "--smart-case",
+                        "--trim"
+                    }
+                },
                 buffers = {
                     mappings = {
                         i = {
-                            ["<C-x>"] = actions.delete_buffer + actions.move_to_top,
+                            ["<C-x>"] = actions.delete_buffer,
                         }
                     }
                 },
                 find_files = {
                     follow = true,
-                }
+                    find_command = { "fd", "--follow", "--ignore-file", "~/dotfiles/nvim/config/ignorefile" }
+                },
+                grep_string = {
+                    additional_args = { "--ignore-file", "~/dotfiles/nvim/config/ignorefile" },
+                },
+                live_grep = {
+                    additional_args = { "--ignore-file", "~/dotfiles/nvim/config/ignorefile" },
+                },
             }
         }
     end
