@@ -89,14 +89,27 @@ return {
             }
         }
 
-        lspconfig.clangd.setup{
-            cmd = {
-                "clangd",
-                    '--query-driver="g++,gcc"',
+        if os.getenv("NIX_CC") ~= nil then
+            lspconfig.clangd.setup{
+                cmd = {
+                    "clangd",
                     "-header-insertion=never",
-                    "--offset-encoding=utf-16"
+                    "--offset-encoding=utf-16",
+                    "--query-driver=".. os.getenv("NIX_CC") .. "/bin/g++" ..
+                    "," .. os.getenv("NIX_CC") .. "/bin/gcc"
+                }
             }
-        }
+        else
+            lspconfig.clangd.setup{
+                cmd = {
+                    "clangd",
+                    "-header-insertion=never",
+                    "--offset-encoding=utf-16",
+                    "--query-driver=gcc,g++"
+                }
+            }
+        end
+
 
         local cmp_mappings = {
             ['<Up>'] = cmp.mapping.select_prev_item({

@@ -2,7 +2,11 @@ return {
     "nvim-telescope/telescope.nvim",
     version = "0.1.x",
     dependencies = {
-        "nvim-lua/plenary.nvim"
+        "nvim-lua/plenary.nvim",
+        {
+            'nvim-telescope/telescope-fzf-native.nvim',
+            build = 'make',
+        }
     },
     keys = {
         {
@@ -107,7 +111,7 @@ return {
                 },
                 find_files = {
                     follow = true,
-                    find_command = { "fd", "--follow", "--ignore-file", "~/dotfiles/nvim/config/ignorefile" }
+                    additional_args = { "--ignore-file", "~/dotfiles/nvim/config/ignorefile" }
                 },
                 grep_string = {
                     additional_args = { "--ignore-file", "~/dotfiles/nvim/config/ignorefile" },
@@ -117,5 +121,7 @@ return {
                 },
             }
         }
+
+        require("telescope").load_extension("fzf")
     end
 }

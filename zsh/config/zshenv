@@ -30,9 +30,18 @@ fi
 
 unset append_path
 
+export FZF_ALT_C_COMMAND=''
+export FZF_CTRL_T_COMMAND=''
+export FZF_DEFAULT_COMMAND='rg --files'
+
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 export TOOLCHAINS=/home/alcachofa/dev/toolchains
 
 export TERMINAL='wezterm'
+export COLORTERM=truecolor
+
+export DIRENV_LOG_FORMAT=
 
 export QT_QPA_PLATFORMTHEME='qt5ct'
 

@@ -31,6 +31,18 @@ yay -S --needed \
 
 chsh -s $(which zsh)
 
+mkdir -p "$(bat --config-dir)/themes"
+
+pushd "$(bat --config-dir)/themes"
+
+curl --remote-name-all https://raw.githubusercontent.com/rose-pine/tm-theme/main/dist/themes/rose-pine{,-dawn,-moon}.tmTheme
+
+bat cache --build
+
+echo '--theme="rose-pine"' >> "$(bat --config-file)"
+
+popd
+
 ln -f -s $DOTFILES/zsh/config/zshrc ~/.zshrc
 ln -f -s $DOTFILES/zsh/config/profile ~/.profile
 ln -f -s $DOTFILES/zsh/config/zshenv ~/.zshenv
