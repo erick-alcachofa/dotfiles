@@ -14,6 +14,11 @@ return {
         },
 
         "williamboman/mason-lspconfig.nvim",
+
+        {
+            "j-hui/fidget.nvim",
+            opts = { },
+        }
     },
 
     config = function()
@@ -245,6 +250,7 @@ return {
             end, opts)
         end)
 
+        lsp.nvim_workspace()
         lsp.setup()
 
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -254,7 +260,7 @@ return {
         vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
             virtual_text = {
                 prefix = "◉",
-                spacing = 2
+                spacing = 6
             },
         })
     end

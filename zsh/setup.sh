@@ -21,6 +21,7 @@ yay -S --needed \
     unzip \
     rsync \
     zoxide \
+    direnv \
     ripgrep \
     gettext \
     starship \

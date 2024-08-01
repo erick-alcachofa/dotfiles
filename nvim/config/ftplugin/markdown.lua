@@ -1,1 +1,2 @@
-vim.opt.colorcolumn = "161"
+vim.opt.colorcolumn = ""
+vim.o.wrap = true

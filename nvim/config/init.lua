@@ -5,6 +5,8 @@ vim.opt.syntax = 'on'
 vim.opt.updatetime = 50
 vim.opt.guicursor = { "n-v-c-sm-i-ci-ve:block", "r-cr-o:hor20" }
 
+vim.opt.showmode = false
+
 vim.opt.number = true
 vim.opt.cursorline = true
 vim.opt.showmatch = true
@@ -43,6 +45,8 @@ vim.opt.expandtab = true
 
 vim.opt.scrolloff = 5
 vim.opt.signcolumn = "yes"
+
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
