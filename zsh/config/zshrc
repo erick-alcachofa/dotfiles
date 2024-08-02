@@ -3,7 +3,7 @@ function append_path() {
         *:"$1":*)
             ;;
         *)
-            PATH="${PATH:+$PATH:}$1"
+            PATH="$1${PATH:+:${PATH}}"
     esac
 }
 
@@ -23,9 +23,9 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-# zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
+zinit light chisui/zsh-nix-shell
 zinit light Aloxaf/fzf-tab
 
 zinit snippet OMZP::git
@@ -65,10 +65,10 @@ bindkey -M emacs '^[l' forward-word
 # [Alt-LeftArrow] - move backward one word
 bindkey -M emacs '^[h' backward-word
 
-HISTSIZE=99999
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
+export HISTSIZE=99999
+export HISTFILE=~/.zsh_history
+export SAVEHIST=$HISTSIZE
+export HISTDUP=erase
 
 setopt appendhistory
 setopt sharehistory
@@ -85,11 +85,6 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --color=always --icon=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'lsd --color=always --icon=always $realpath'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-
-export FZF_ALT_C_COMMAND=''
-export FZF_CTRL_T_COMMAND=''
-export FZF_DEFAULT_COMMAND='rg --files --fixed-strings --hidden --follow --glob "!.git/*"'
 
 function files() {
     thunar $@ &>/dev/null & disown
@@ -108,27 +103,81 @@ function open() {
 }
 
 function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		\builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        \builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
+function zpd() {
+    local dir="$1"
+
+    case "$dir" in
+	/*|~*)
+            pushd "$dir" &>/dev/null
+            dirs -p -v
+        ;;
+        *)
+            if [[ -d "$dir" ]]; then
+                pushd "$dir" &>/dev/null
+                dirs -p -v
+                return
+            fi
+
+            local matches="$(zoxide query -l "$dir")"
+
+            if [[ -z "$matches" ]]; then
+                echo "Not found: $dir"
+                return
+            fi
+
+            if [[ "$(echo $matches | wc -l)" -eq 1 ]]; then
+                pushd "$matches" &>/dev/null
+                dirs -p -v
+            else
+                local selected=$(echo $matches | fzf --preview="lsd --color=always --icon=always {}" --preview-window="down:25%")
+
+                if [[ ! -z "$selected" ]]; then
+                    pushd "$selected" &>/dev/null
+                    dirs -p -v
+                fi
+            fi
+	;;
+    esac
+}
+
+function pd() {
+    pushd "$@" &>/dev/null
+    dirs -p -v
+}
+
+function ppd() {
+    popd "$@" &>/dev/null
+    dirs -p -v
 }
 
 alias ..='cd ..'
 alias ...='cd ../..'
 
-alias z='cd'
+alias ds='dirs -p -v'
 
-alias ls='lsd'
 alias l='lsd -Al'
+alias ls='lsd'
+
 alias tree='lsd --tree'
+
+alias df='duf'
+alias du='dust'
+
+alias psf="ps -ef | fzf | awk '{ print \$2 }'"
+
 alias cat='bat -p -P'
 alias clip='xclip -sel clip'
 
 alias mv='mv -i'
-alias rm='rm -I'
+alias rm='rm.sh -I'
 
 alias smux='tmuxinator start'
 alias mux='tmuxinator'
@@ -149,8 +198,8 @@ autoload -Uz compinit && compinit
 zinit cdreplay -q
 
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
-
+eval "$(direnv hook zsh)"
+eval "$(zoxide init --cmd z zsh)"
 eval "$(starship init zsh)"
 
 fastfetch

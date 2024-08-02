@@ -47,7 +47,6 @@ yay -S --needed \
     ffmpeg \
     jmtpfs \
     xdotool \
-    vivaldi \
     firefox \
     spotify \
     discord \
@@ -56,7 +55,6 @@ yay -S --needed \
     ntfs-3g \
     texinfo \
     udiskie \
-    chromium \
     seahorse \
     guvcview \
     qpwgraph \
