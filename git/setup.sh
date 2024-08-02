@@ -63,7 +63,7 @@ if [ -d "$HOME/secrets" ]; then
 
         mkdir -p $HOME/.ssh
         mv $HOME/secrets/ssh/* $HOME/.ssh/
-        ln -f -s $DOTFILES/git/ssh/config $HOME/.ssh/config
+        cp $DOTFILES/git/config/ssh/config $HOME/.ssh/config
 
         ssh-add ~/.ssh/Erick3900
         ssh-add ~/.ssh/erick-alcachofa
