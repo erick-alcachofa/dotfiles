@@ -34,7 +34,7 @@ style = 'bold green'
 [username]
 show_always = true
 format = '[$user]($style) '
-aliases = { "alcachofa" = "$", "root" = "#" }
+aliases = { "artichoke" = "$", "root" = "#" }
 
 [aws]
 symbol = "  "
