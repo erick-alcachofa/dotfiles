@@ -7,7 +7,7 @@ return {
     end,
     opts = {
         variant = "moon",
-        dark_variant = "moon", -- main, moon, or dawn
+        dark_variant = "moon",
         dim_inactive_windows = false,
         extend_background_behind_borders = true,
 
@@ -20,6 +20,7 @@ return {
         styles = {
             bold = true,
             italic = true,
+            transparency = true
         },
 
         groups = {

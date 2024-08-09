@@ -8,7 +8,7 @@ config.audible_bell = "Disabled"
 config.font = wezterm.font('FantasqueSansM Nerd Font Mono')
 config.font_size = 12
 
-config.color_scheme = 'Rosé Pine Moon (Gogh)'
+config.color_scheme = 'Rosé Pine (Gogh)'
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true

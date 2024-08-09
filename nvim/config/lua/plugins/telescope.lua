@@ -10,9 +10,16 @@ return {
     },
     keys = {
         {
-            "<leader>fs",
+            "<leader>f/",
             function()
                 require("telescope.builtin").current_buffer_fuzzy_find()
+            end,
+            silent = true,
+        },
+        {
+            "<leader>fs",
+            function()
+                require("telescope.builtin").lsp_document_symbols()
             end,
             silent = true,
         },

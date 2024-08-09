@@ -154,6 +154,38 @@ function ppd() {
     dirs -p -v
 }
 
+function pkill() {
+    kill "$@" `psf`
+}
+
+function watch() {
+    local file="$1"
+    shift
+    local cmd="$@"
+
+    if [[ ! -f "$file" ]]; then
+	echo "File: '$file' does not exist"
+	return 1
+    fi
+
+    local last_ts="$(stat -c %Z "$file")"
+
+    while true; do
+	local curr_ts="$(stat -c %Z "$file")"
+
+	if [[ "$last_ts" != "$curr_ts" ]]; then
+	    eval "$cmd"
+	    last_ts="$curr_ts"
+	fi
+
+	sleep 1
+    done
+}
+
+function rwhich() {
+    readlink -f `which "$@"`
+}
+
 alias ..='cd ..'
 alias ...='cd ../..'
 
@@ -177,6 +209,8 @@ alias rm='rm.sh -I'
 
 alias smux='tmuxinator start'
 alias mux='tmuxinator'
+
+alias su='sudo \su -'
 
 alias dsmux='tmuxinator start default -n `basename $PWD`'
 

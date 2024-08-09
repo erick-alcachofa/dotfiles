@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-data=$(nvidia-smi --query-gpu="memory.total,memory.used" --format="csv,noheader,nounits")
+data=$(amdgpu_top -d -J | jq '.[0].VRAM | "\(."Total VRAM".value),\(."Total VRAM Usage".value)"' | tr -d "\"")
 
 total=$(echo $data | cut -d"," -f1 | tr -d '[:space:]')
 used=$(echo $data | cut -d"," -f2 | tr -d '[:space:]')

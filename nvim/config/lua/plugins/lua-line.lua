@@ -7,8 +7,8 @@ return {
         options = {
             globalstatus = true,
             component_separators = {
-                left = '|',
-                right = '|'
+                left = '',
+                right = ''
             },
             section_separators = {
                 left = '',
@@ -27,10 +27,24 @@ return {
                     end
                 }
             },
-            lualine_b = { 'branch', 'diff', 'diagnostics' },
-            lualine_c = { 'filename' },
+            lualine_b = {
+                'branch',
+                'diff',
+                'diagnostics'
+            },
+            lualine_c = {
+                {
+                    'filename',
+                    symbols = {
+                        modified = "[*]",
+                        readonly = "[󰌾]",
+                        unnamed = " ? ",
+                        newfile = "[+]"
+                    }
+                }
+            },
 
-            lualine_x = { 'filetype' },
+            lualine_x = { 'fileformat', 'filetype' },
             lualine_y = { 'progress' },
             lualine_z = { 'location' },
         }

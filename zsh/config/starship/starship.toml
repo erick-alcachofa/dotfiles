@@ -21,6 +21,9 @@ $direnv\
 $container\
 $character"""
 
+add_newline = false
+continuation_prompt = '󱞩 '
+
 [direnv]
 disabled = false
 format = '[$loaded]($style)'
