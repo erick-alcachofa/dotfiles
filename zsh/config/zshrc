@@ -102,46 +102,100 @@ function yy() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
     yazi "$@" --cwd-file="$tmp"
     if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        \builtin cd -- "$cwd"
+        zpd "$cwd"
     fi
     rm -f -- "$tmp"
+}
+
+function realpath() {
+    local reqp="$1"
+
+    case "$reqp" in
+        ~*)
+            reqp="$HOME$(echo "$reqp" | tr -d "~")"
+        ;;
+        *)
+        ;;
+    esac
+
+    /usr/bin/realpath -m -L "$reqp"
+}
+
+function smrt_pd() {
+    local reqp=$(realpath $1)
+
+    while IFS= read -r entry; do
+        local entryp=$(realpath `echo "$entry" | cut -f2`)
+        local entryn=$(echo "$entry" | cut -f1)
+
+        if [[ "$entryp" = "$reqp" ]]; then
+            pd +$entryn
+            return 0
+        fi
+    done < <(dirs -p -v -l)
+
+    pd $reqp
+}
+
+function errcho() {
+    >&2 echo "$@"
+}
+
+function zmatch() {
+    local dir="$1"
+    local matches="$(zoxide query -i "$dir")"
+
+    if [[ -z "$matches" ]]; then
+        errcho "Not found: $dir"
+        return 1
+    fi
+
+    echo "$matches"
+    return 0
 }
 
 function zpd() {
     local dir="$1"
 
+    if [[ -z "$dir" ]]; then
+        local matches="$(zmatch $dir)"
+
+        if [[ -z "$matches" ]]; then
+            errcho "Not found: $dir"
+            return 0
+        fi
+
+        smrt_pd "$matches"
+
+        return 0
+    fi
+
     case "$dir" in
+        -)
+            zpd "$OLDPWD"
+        ;;
 	/*|~*)
-            pushd "$dir" &>/dev/null
-            dirs -p -v
+            smrt_pd "$dir"
+            return 0
         ;;
         *)
             if [[ -d "$dir" ]]; then
-                pushd "$dir" &>/dev/null
-                dirs -p -v
-                return
+                smrt_pd "$dir"
+                return 0
             fi
 
-            local matches="$(zoxide query -l "$dir")"
+            local matches="$(zmatch $dir 2>/dev/null)"
 
             if [[ -z "$matches" ]]; then
-                echo "Not found: $dir"
-                return
+                errcho "Not found: $dir"
+                return 0
             fi
 
-            if [[ "$(echo $matches | wc -l)" -eq 1 ]]; then
-                pushd "$matches" &>/dev/null
-                dirs -p -v
-            else
-                local selected=$(echo $matches | fzf --preview="lsd --color=always --icon=always {}" --preview-window="down:25%")
-
-                if [[ ! -z "$selected" ]]; then
-                    pushd "$selected" &>/dev/null
-                    dirs -p -v
-                fi
-            fi
+            smrt_pd "$matches"
 	;;
     esac
+
+    return 0
 }
 
 function pd() {
@@ -158,6 +212,29 @@ function pkill() {
     kill "$@" `psf`
 }
 
+function cd() {
+    local reqp
+
+    if [[ -z "$1" ]]; then
+        reqp=$HOME
+    else
+        reqp=$(realpath $1)
+    fi
+
+    while IFS= read -r entry; do
+        local entryp=$(realpath `echo "$entry" | cut -f2`)
+        local entryn=$(echo "$entry" | cut -f1)
+
+        if [[ "$entryp" = "$reqp" ]]; then
+            ppd &>/dev/null
+            pd +$(($entryn - 1))
+            return 0
+        fi
+    done < <(dirs -p -v -l | tail -n +2)
+
+    builtin cd $1
+}
+
 function watch() {
     local file="$1"
     shift
@@ -167,6 +244,8 @@ function watch() {
 	echo "File: '$file' does not exist"
 	return 1
     fi
+
+    eval "$cmd"
 
     local last_ts="$(stat -c %Z "$file")"
 
@@ -188,6 +267,8 @@ function rwhich() {
 
 alias ..='cd ..'
 alias ...='cd ../..'
+
+alias z='cd'
 
 alias ds='dirs -p -v'
 
@@ -229,7 +310,6 @@ zinit cdreplay -q
 
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
-eval "$(zoxide init --cmd z zsh)"
 eval "$(starship init zsh)"
 
 fastfetch

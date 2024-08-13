@@ -31,7 +31,7 @@ git config --global delta.line-numbers-plus-style "\"#9ccfd8\" normal"
 
 git config --global delta.whitespace-error-style "syntax \"#f6c177\""
 
-git config --global delta.syntax-theme "rose-pine-moon"
+git config --global delta.syntax-theme "rose-pine"
 
 git config --global merge.conflictstyle diff3
 git config --global diff.colorMoved default
