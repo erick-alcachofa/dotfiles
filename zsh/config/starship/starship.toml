@@ -1,5 +1,5 @@
 format = """
-$username\
+$os\
 $hostname\
 $directory\
 $git_branch\
@@ -16,9 +16,9 @@ $cmd_duration\
 $line_break\
 $jobs\
 $status\
-$os\
 $direnv\
 $container\
+$username\
 $character"""
 
 add_newline = false
@@ -35,6 +35,11 @@ style = 'bold green'
 show_always = true
 format = '[$user]($style) '
 aliases = { "artichoke" = "$", "root" = "#" }
+
+[hostname]
+ssh_only = true
+format = '[@$hostname]($style) '
+ssh_symbol = ''
 
 [aws]
 symbol = "  "
@@ -62,6 +67,7 @@ symbol = " "
 
 [directory]
 read_only = " 󰌾"
+fish_style_pwd_dir_length = 1
 
 [docker_context]
 symbol = " "
@@ -98,10 +104,6 @@ symbol = " "
 
 [hg_branch]
 symbol = " "
-
-[hostname]
-ssh_only = true
-ssh_symbol = " "
 
 [java]
 symbol = " "

@@ -100,25 +100,21 @@ function open() {
 
 function yy() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+
     yazi "$@" --cwd-file="$tmp"
-    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        zpd "$cwd"
+
+    local cwd="$(cat -- "$tmp")"
+
+    if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        cd "$cwd"
     fi
+
     rm -f -- "$tmp"
 }
 
 function realpath() {
     local reqp="$1"
-
-    case "$reqp" in
-        ~*)
-            reqp="$HOME$(echo "$reqp" | tr -d "~")"
-        ;;
-        *)
-        ;;
-    esac
-
-    /usr/bin/realpath -m -L "$reqp"
+    /usr/bin/realpath -m -L "$(eval "echo $reqp")"
 }
 
 function smrt_pd() {
@@ -158,7 +154,7 @@ function zpd() {
     local dir="$1"
 
     if [[ -z "$dir" ]]; then
-        local matches="$(zmatch $dir)"
+        local matches="$(zmatch $dir 2>/dev/null)"
 
         if [[ -z "$matches" ]]; then
             errcho "Not found: $dir"
