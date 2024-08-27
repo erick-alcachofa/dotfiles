@@ -144,21 +144,18 @@ for_window [all] title_window_icon yes
 for_window [all] title_window_icon padding 5
 
 set $clear          #00000000
-set $base           #191724
-set $surface        #1f1d2e
-set $overlay        #26233a
-set $muted          #6e6a86
-set $subtle         #908caa
-set $text           #e0def4
-set $love           #eb6f92
-set $gold           #f6c177
-set $rose           #ebbcba
-set $pine           #31748f
-set $foam           #9ccfd8
-set $iris           #c4a7e7
-set $highlightlow   #21202e
-set $highlightmed   #403d52
-set $highlighthigh  #524f67
+set $base           #1F1F28
+set $surface        #363646
+set $overlay        #223249
+set $muted          #2D4F67
+set $subtle         #49443C
+set $text           #DCD7BA
+set $love           #D27E99
+set $gold           #E6C384
+set $rose           #E46876
+set $pine           #658594
+set $foam           #6A9589
+set $iris           #957FB8
 
 #                        Border    Backgr      Text      Indica     ChBord
 client.focused           $clear    $muted      $text     $pine      $love
@@ -175,7 +172,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id ~/dotfiles/gui/scripts/picom.sh
 exec --no-startup-id nm-applet
 
-exec_always --no-startup-id "feh --bg-fill ~/dotfiles/gui/wallpapers/rose-pine.png"
+exec_always --no-startup-id "feh --bg-fill ~/dotfiles/gui/wallpapers/kanagawa.png"
 
 exec_always --no-startup-id ~/dotfiles/gui/scripts/polybar.sh
 

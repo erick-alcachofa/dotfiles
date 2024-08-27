@@ -25,17 +25,15 @@
     transparency = 0
 
     separator_height = 2
-    separator_color = "#d8dee9"
 
     padding = 10
     horizontal_padding = 10
 
     text_icon_padding = 0
-    icon_theme = "rose-pine-moon-icons"
+    icon_theme = "Kanagawa"
     enable_recursive_icon_lookup = true
 
     frame_width = 1
-    frame_color = "#81a1c1"
 
     gap_size = 3
     corner_radius = 2
@@ -90,22 +88,25 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#393955"
-    highlight = "#3e8fb0"
-    frame_color = "#3e8fb0"
+    foreground = "#DCD7BA"
+    background = "#2D4F67"
+    highlight = "#658594"
+    frame_color = "#658594"
     default_icon = "dialog-information"
-    format = "<b><span foreground='#3e8fb0'>%s</span></b>\n%b"
+    format = "<b><span foreground='#DCD7BA'>%s</span></b>\n%b"
 
 [urgency_normal]
-    background = "#443c53"
-    highlight = "#f6c177"
-    frame_color = "#f6c177"
+    foreground = "#DCD7BA"
+    background = "#1F1F28"
+    highlight = "#E6C384"
+    frame_color = "#E6C384"
     default_icon = "dialog-warning"
-    format = "<b><span foreground='#f6c177'>%s</span></b>\n%b"
+    format = "<b><span foreground='#E6C384'>%s</span></b>\n%b"
 
 [urgency_critical]
-    background = "#433754"
-    highlight = "#eb6f92"
-    frame_color = "#eb6f92"
+    foreground = "#DCD7BA"
+    background = "#223249"
+    highlight = "#E46876"
+    frame_color = "#E46876"
     default_icon = "dialog-error"
-    format = "<b><span foreground='#eb6f92'>%s</span></b>\n%b"
+    format = "<b><span foreground='#E46876'>%s</span></b>\nAS%b"

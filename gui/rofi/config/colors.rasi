@@ -1,16 +1,16 @@
 * {
     clear:		#00000000;
-    base:		#232136;
-    surface:	#2a273f;
-    overlay:    #393552;
-    muted:		#6e6a86;
-    subtle:		#908caa;
-    text:		#e0def4;
-    love:		#eb6f92;
-    gold:		#f6c177;
-    rose:		#ea9a97;
-    pine:		#3e8fb0;
-    foam:		#9ccfd8;
-    iris:		#c4a7e7;
+    base:		#1F1F28;
+    surface:	#363646;
+    overlay:    #223249;
+    muted:		#2D4F67;
+    subtle:		#49443C;
+    text:		#DCD7BA;
+    love:		#D27E99;
+    gold:		#E6C384;
+    rose:		#E46876;
+    pine:		#658594;
+    foam:		#6A9589;
+    iris:		#957FB8;
 }
 
