@@ -13,6 +13,7 @@ $nix_shell\
 $env_var\
 $sudo\
 $cmd_duration\
+$python\
 $line_break\
 $jobs\
 $status\
@@ -193,6 +194,8 @@ symbol = " "
 
 [python]
 symbol = " "
+detect_extensions = []
+pyenv_version_name = true
 
 [rlang]
 symbol = "󰟔 "

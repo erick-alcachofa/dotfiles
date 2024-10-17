@@ -1,18 +1,6 @@
-function append_path() {
-    case ":$PATH:" in
-        *:"$1":*)
-            ;;
-        *)
-            PATH="$1${PATH:+:${PATH}}"
-    esac
-}
-
 if [ -d "$HOME/.local/bin" ] ; then
-    append_path "$HOME/.local/bin"
-    export PATH
+    prepend_path "$HOME/.local/bin"
 fi
-
-unset append_path
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -306,6 +294,7 @@ zinit cdreplay -q
 
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
+eval "$(zoxide init zsh --cmd zxd)"
 eval "$(starship init zsh)"
 
 fastfetch

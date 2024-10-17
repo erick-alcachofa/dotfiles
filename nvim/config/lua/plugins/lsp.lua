@@ -18,6 +18,15 @@ return {
         {
             "j-hui/fidget.nvim",
             opts = { },
+        },
+        {
+            "nvim-java/nvim-java",
+            dependencies = {
+                "nvim-java/lua-async-await",
+                "nvim-java/nvim-java-core",
+                "nvim-java/nvim-java-test",
+                "nvim-java/nvim-java-dap",
+            }
         }
     },
 
@@ -46,7 +55,7 @@ return {
             "yamlls",
             "jsonls",
             "pyright",
-            "tsserver",
+            "ts_ls",
             "gradle_ls",
             "rust_analyzer",
             "markdown_oxide",
@@ -56,13 +65,12 @@ return {
         lspconfig.zls.setup{}
         lspconfig.html.setup{}
         lspconfig.taplo.setup{}
-        lspconfig.jdtls.setup{}
         lspconfig.cssls.setup{}
         lspconfig.cmake.setup{}
         lspconfig.bashls.setup{}
         lspconfig.jsonls.setup{}
         lspconfig.pyright.setup{}
-        lspconfig.tsserver.setup{}
+        lspconfig.ts_ls.setup{}
         lspconfig.gradle_ls.setup{}
         lspconfig.rust_analyzer.setup{}
         lspconfig.markdown_oxide.setup{}
@@ -115,6 +123,8 @@ return {
             }
         end
 
+        require('java').setup{}
+        lspconfig.jdtls.setup{}
 
         local cmp_mappings = {
             ['<Up>'] = cmp.mapping.select_prev_item({
