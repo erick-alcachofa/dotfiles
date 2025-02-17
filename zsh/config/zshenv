@@ -4,6 +4,7 @@ function prepend_path() {
             ;;
         *)
             export PATH="$1${PATH:+:${PATH}}"
+        ;;
     esac
 }
 

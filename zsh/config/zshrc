@@ -166,7 +166,7 @@ function zpd() {
         -)
             zpd "$OLDPWD"
         ;;
-	/*|~*)
+        /*|~*)
             smrt_pd "$dir"
             return 0
         ;;
@@ -196,7 +196,7 @@ function zpd() {
             fi
 
             smrt_pd "$matches"
-	;;
+        ;;
     esac
 
     return 0
