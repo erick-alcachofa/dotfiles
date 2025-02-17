@@ -12,8 +12,6 @@ return {
 
         leap.add_default_mappings(true)
 
-        vim.keymap.del({ "x", "o" }, "x")
-        vim.keymap.del({ "x", "o" }, "X")
         vim.keymap.set("n", "s", function()
             require("leap").leap({ target_windows = { vim.api.nvim_get_current_win() } })
         end)

@@ -1,9 +1,9 @@
 local colorscheme_path = vim.fn.stdpath('state') .. '/colorscheme'
 
 local function load()
-	local file = io.open(colorscheme_path, 'r')
+    local file = io.open(colorscheme_path, 'r')
 
-	if not file then
+    if not file then
         return nil
     end
 
@@ -99,7 +99,6 @@ local kanagawa = {
     "rebelot/kanagawa.nvim",
     name = "kanagawa",
     config = function(_, opts)
-        vim.opt.background = ""
         require("kanagawa").setup(opts)
         vim.cmd.colorscheme("kanagawa")
     end,
@@ -144,9 +143,73 @@ local kanagawa = {
     }
 }
 
+local material = {
+    'marko-cerovac/material.nvim',
+    name = 'material',
+    lazy = false,
+    config = function(_, opts)
+        vim.g.material_style = "darker"
+
+        local c = require("material.colors")
+
+        opts.custom_highlights = {
+            TelescopeTitle = {
+                fg = c.main.white,
+                bg = c.main.darkorange,
+                bold = true
+            },
+            TelescopePromptNormal = {
+                bg = c.editor.bg_alt
+            },
+            TelescopePromptBorder = {
+                fg = c.editor.bg_alt,
+                bg = c.editor.bg_alt
+            },
+            TelescopeResultsNormal = {
+                bg = c.editor.active,
+            },
+            TelescopeResultsBorder = {
+                bg = c.editor.active,
+                fg = c.editor.active
+            },
+            TelescopePreviewNormal = {
+                bg = c.editor.bg,
+            },
+            TelescopePreviewBorder = {
+                bg = c.editor.bg,
+                fg = c.editor.bg
+            },
+        }
+
+        require("material").setup(opts)
+
+        vim.cmd.colorscheme("material")
+    end,
+    opts = {
+        async_loading = false,
+        contrast = {
+            sidebars = true,
+            floating_windows = true,
+            cursor_line = true,
+        },
+        plugins = {
+            "gitsigns",
+            "harpoon",
+            "indent-blankline",
+            "nvim-tree",
+            "nvim-cmp",
+        },
+        disable = {
+            colored_cursor = true,
+            borders = true,
+        },
+    }
+}
+
 local specs = {
     rose_pine,
-    kanagawa
+    kanagawa,
+    material
 }
 
 vim.api.nvim_create_user_command(
@@ -167,7 +230,7 @@ vim.api.nvim_create_user_command(
     {
         desc = "Set nvim colorscheme from defined themes",
         nargs = 1,
-        complete = function(arglead, cmdline, cursorpos)
+        complete = function()
             local list = {}
 
             for _, spec in ipairs(specs) do
@@ -183,15 +246,15 @@ vim.api.nvim_create_user_command(
 local name = load()
 
 if name and name ~= '' then
-	for _, spec in ipairs(specs) do
-		if spec.name == name then
+    for _, spec in ipairs(specs) do
+        if spec.name == name then
             spec.lazy = false
-			spec.priority = 1000
+            spec.priority = 1000
         else
-			spec.priority = nil
+            spec.priority = nil
             spec.lazy = true
-		end
-	end
+        end
+    end
 end
 
 return specs

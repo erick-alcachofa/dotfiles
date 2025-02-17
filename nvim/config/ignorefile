@@ -38,8 +38,6 @@ node_modules/
 .npm/
 .local/
 packages/
-stylesheets/
 tags
 tmp/
-utl/
-vendor/
+build**

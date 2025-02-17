@@ -3,7 +3,6 @@
     follow = none
 
     width = (300,400)
-    height = 300
     origin = top-right
     offset = 11x39
     scale = 0

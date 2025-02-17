@@ -49,7 +49,6 @@ return {
             "taplo",
             "jdtls",
             "cssls",
-            "cmake",
             "bashls",
             "lua_ls",
             "yamlls",
@@ -66,7 +65,6 @@ return {
         lspconfig.html.setup{}
         lspconfig.taplo.setup{}
         lspconfig.cssls.setup{}
-        lspconfig.cmake.setup{}
         lspconfig.bashls.setup{}
         lspconfig.jsonls.setup{}
         lspconfig.pyright.setup{}
@@ -161,7 +159,6 @@ return {
         }
 
         lsp.setup_nvim_cmp {
-            mapping = cmp_mappings,
             formatting = {
                 fields = {
                     "kind",
@@ -263,9 +260,9 @@ return {
         lsp.nvim_workspace()
         lsp.setup()
 
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-        })
+        -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        --     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+        -- })
 
         vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
             virtual_text = {

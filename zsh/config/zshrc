@@ -2,6 +2,10 @@ if [ -d "$HOME/.local/bin" ] ; then
     prepend_path "$HOME/.local/bin"
 fi
 
+if [ -d "$HOME/.cargo/bin" ]; then
+    prepend_path "$HOME/.cargo/bin"
+fi
+
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -22,7 +26,7 @@ zinit snippet OMZP::systemd
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::command-not-found
 
-bindkey -e
+bindkey -v
 
 # Start typing + [Up-Arrow] - fuzzy find history forward
 autoload -U up-line-or-beginning-search
@@ -43,11 +47,15 @@ if [[ -n "${terminfo[kcud1]}" ]]; then
 fi
 
 # [Alt-RightArrow] - move forward one word
-bindkey -M emacs '^[[1;3C' forward-word
+bindkey -M viins '^[[1;3C' forward-word
 
 # [Alt-LeftArrow] - move backward one word
-bindkey -M emacs '^[[1;3D' backward-word
+bindkey -M viins '^[[1;3D' backward-word
 
+autoload -z edit-command-line
+zle -N edit-command-line
+
+bindkey -M viins '^[e' edit-command-line
 
 export HISTSIZE=99999
 export HISTFILE=~/.zsh_history
@@ -126,8 +134,8 @@ function errcho() {
 }
 
 function zmatch() {
-    local dir="$1"
-    local matches="$(zoxide query -i "$dir")"
+    local dir="$@[-1]"
+    local matches="$(zoxide query $@)"
 
     if [[ -z "$matches" ]]; then
         errcho "Not found: $dir"
@@ -139,10 +147,10 @@ function zmatch() {
 }
 
 function zpd() {
-    local dir="$1"
+    local dir="$@"
 
     if [[ -z "$dir" ]]; then
-        local matches="$(zmatch $dir 2>/dev/null)"
+        local matches="$(zmatch -i $dir 2>/dev/null)"
 
         if [[ -z "$matches" ]]; then
             errcho "Not found: $dir"
@@ -168,11 +176,23 @@ function zpd() {
                 return 0
             fi
 
-            local matches="$(zmatch $dir 2>/dev/null)"
+            local matches="$(zmatch -l $dir 2>/dev/null)"
 
             if [[ -z "$matches" ]]; then
                 errcho "Not found: $dir"
-                return 0
+                return 1
+            fi
+
+            if [[ $(echo "$matches" | wc -l) -eq 1 ]]; then
+                smrt_pd "$matches"
+                return 0;
+            fi
+
+            matches="$(zmatch -i $dir 2>/dev/null)"
+
+            if [[ -z "$matches" ]]; then
+                errcho "Not found: $dir"
+                return 1
             fi
 
             smrt_pd "$matches"
@@ -183,13 +203,11 @@ function zpd() {
 }
 
 function pd() {
-    pushd "$@" &>/dev/null
-    dirs -p -v
+    pushd "$@" &>/dev/null && dirs -p -v
 }
 
 function ppd() {
-    popd "$@" &>/dev/null
-    dirs -p -v
+    popd "$@" &>/dev/null && dirs -p -v
 }
 
 function pkill() {
@@ -216,33 +234,7 @@ function cd() {
         fi
     done < <(dirs -p -v -l | tail -n +2)
 
-    builtin cd $1
-}
-
-function watch() {
-    local file="$1"
-    shift
-    local cmd="$@"
-
-    if [[ ! -f "$file" ]]; then
-	echo "File: '$file' does not exist"
-	return 1
-    fi
-
-    eval "$cmd"
-
-    local last_ts="$(stat -c %Z "$file")"
-
-    while true; do
-	local curr_ts="$(stat -c %Z "$file")"
-
-	if [[ "$last_ts" != "$curr_ts" ]]; then
-	    eval "$cmd"
-	    last_ts="$curr_ts"
-	fi
-
-	sleep 1
-    done
+    builtin cd $1 && dirs -p -v
 }
 
 function rwhich() {
@@ -270,7 +262,7 @@ alias cat='bat -p -P'
 alias clip='xclip -sel clip'
 
 alias mv='mv -i'
-alias rm='rm.sh -I'
+alias rm='rip'
 
 alias smux='tmuxinator start'
 alias mux='tmuxinator'

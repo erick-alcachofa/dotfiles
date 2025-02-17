@@ -32,8 +32,6 @@ export FZF_DEFAULT_COMMAND='rg --files'
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
-export TOOLCHAINS=/home/alcachofa/dev/toolchains
-
 export TERMINAL='xterm-256color'
 export COLORTERM=truecolor
 

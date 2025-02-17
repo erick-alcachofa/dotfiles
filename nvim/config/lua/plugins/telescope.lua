@@ -53,9 +53,7 @@ return {
         },
     },
     config = function(plugin, opts)
-        local builtin = require('telescope.builtin')
         local actions = require('telescope.actions')
-        local config = require('telescope.config')
 
         require("telescope").setup {
             defaults = {
@@ -76,7 +74,7 @@ return {
                 },
 
                 prompt_prefix = "   ",
-                selection_caret = "  ",
+                selection_caret = "> ",
 
                 border = true,
                 borderchars = { "▄", "▌", "▀", "▐", "▗", "▖", "▘", "▝" },
@@ -96,19 +94,20 @@ return {
                         ["<Esc>"] = actions.close
                     }
                 },
+
+                vimgrep_arguments = {
+                    "rg",
+                    "--color=never",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+                    "--trim",
+                    "--ignore-file", "/home/artichoke/dotfiles/nvim/config/ignorefile"
+                }
             },
             pickers = {
-                defaults = {
-                    vimgrep_arguments = {
-                        "--color=never",
-                        "--no-heading",
-                        "--with-filename",
-                        "--line-number",
-                        "--column",
-                        "--smart-case",
-                        "--trim"
-                    }
-                },
                 buffers = {
                     mappings = {
                         i = {
@@ -118,14 +117,15 @@ return {
                 },
                 find_files = {
                     follow = true,
-                    additional_args = { "--ignore-file", "~/dotfiles/nvim/config/ignorefile" }
-                },
-                grep_string = {
-                    additional_args = { "--ignore-file", "~/dotfiles/nvim/config/ignorefile" },
-                },
-                live_grep = {
-                    additional_args = { "--ignore-file", "~/dotfiles/nvim/config/ignorefile" },
-                },
+                    find_command = {
+                        "fd",
+                        "--hidden",
+                        "--follow",
+                        "--type", "f",
+                        "--color=never",
+                        "--ignore-file", "/home/artichoke/dotfiles/nvim/config/ignorefile"
+                    }
+                }
             }
         }
 

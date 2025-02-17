@@ -8,30 +8,7 @@ return {
     config = function()
         local harpoon = require("harpoon")
 
-        harpoon:setup({
-            ["harpoon_files"] = {
-                add = function(possible_value)
-                    local Path = require("plenary.path")
-
-                    local function normalize_path(buf_name, root)
-                        return Path:new(buf_name):make_relative(root)
-                    end
-
-                    local value = possible_value.value or normalize_path(
-                        vim.api.nvim_buf_get_name(
-                            vim.api.nvim_get_current_buf()
-                        ),
-                        vim.loop.cwd()
-                    )
-
-                    return {
-                        value = value,
-                        context = possible_value.context or { }
-                    }
-                end,
-
-            }
-        })
+        harpoon:setup({})
 
         local conf = require("telescope.config").values
 
